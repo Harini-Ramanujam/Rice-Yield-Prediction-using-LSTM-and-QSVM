@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - Smart Agriculture AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            line-height: 1.6; 
+            color: #2d3748; 
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        /* Header - Dashboard Style */
+        header { 
+            background: rgba(76, 175, 80, 0.95); 
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        h1 { 
+            font-size: clamp(1.2rem, 3vw, 1.8rem); 
+            color: white; 
+            font-weight: 700; 
+        }
+        h1 .emoji { 
+            font-size: 1.3em; 
+            margin-right: 0.5rem; 
+        }
+        nav a { 
+            color: white; 
+            text-decoration: none; 
+            padding: 0.6rem 1.2rem; 
+            border-radius: 50px; 
+            font-weight: 500; 
+            transition: all 0.3s; 
+            border: 2px solid rgba(255,255,255,0.3); 
+        }
+        nav a:hover { 
+            background: white; 
+            color: #4CAF50; 
+            transform: translateY(-2px); 
+        }
+
+        /* Main container */
+        .dashboard { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding: 0 2rem 4rem; 
+        }
+
+        /* Result Card */
+        .result-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-top: 6px solid #4CAF50;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .result-title {
+            font-size: 2.5rem; 
+            color: #1a202c; 
+            margin-bottom: 2rem; 
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .section h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .value {
+            font-size: 1.1rem;
+            color: #1a202c;
+            line-height: 1.7;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 16px;
+            border-left: 5px solid #4CAF50;
+        }
+
+        .yield-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #2e7d32;
+            background: rgba(46, 125, 50, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            display: inline-block;
+            margin: 1rem 0;
+        }
+
+        .confidence-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4CAF50;
+        }
+
+        /* Recommendations List */
+        .recommendations {
+            display: grid;
+            gap: 1rem;
+            padding: 1.5rem;
+        }
+        .recommendation-item {
+            background: white;
+            padding: 1.25rem;
+            border-radius: 12px;
+            border-left: 4px solid #4CAF50;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        .recommendation-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        /* Image Display */
+        .image-section {
+            text-align: center;
+        }
+        .uploaded-image {
+            max-width: 400px;
+            width: 100%;
+            border-radius: 20px;
+            border: 4px solid #4CAF50;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            margin-top: 1rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(76, 175, 80, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Healthy Status */
+        .healthy-status {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border: 2px solid #c3e6cb;
+            text-align: center;
+            padding: 2.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard { padding: 1rem; }
+            .result-title { font-size: 2rem; }
+            .result-card { padding: 2rem 1.5rem; }
+            .action-buttons { flex-direction: column; align-items: center; }
+            header { padding: 1rem; flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span class="emoji">🌱</span>Smart Agriculture AI</h1>
+        <nav>
+            <a href="/dashboard">← Dashboard</a>
+        </nav>
+    </header>
+
+    <div class="dashboard">
+        <div class="result-card">
+            <h1 class="result-title">{{ title }}</h1>
+
+            <!-- ===================================================== -->
+            <!-- ================= YIELD RESULT ===================== -->
+            <!-- ===================================================== -->
+            {% if mode == "yield" %}
+                <div class="section">
+                    <h3>🌾 Predicted Rice Yield</h3>
+                    <p class="value"><span class="yield-number">{{ prediction }}</span> kg/ha</p>
+                </div>
+
+                <div class="section">
+                    <h3>👨‍🌾 Farmer-Friendly Recommendations</h3>
+                    <div class="recommendations">
+                        <div class="recommendation-item">
+                            <strong>💧 Irrigation:</strong> Apply nitrogen fertilizer in split doses (basal, tillering, panicle initiation)
+                        </div>
+                        <div class="recommendation-item">
+                            <strong>🧪 Soil:</strong> Maintain soil pH between <b>5.5 – 7.0</b> for better nutrient uptake
+                        </div>
+                        <div class="recommendation-item">
+                            <strong>🌱 Growth:</strong> Ensure timely irrigation, especially during flowering stage
+                        </div>
+                        <div class="recommendation-item">
+                            <strong>⚠️ Avoid:</strong> Water stagnation during early crop growth stages
+                        </div>
+                        <div class="recommendation-item">
+                            <strong>🌾 Seeds:</strong> Use certified seeds with recommended plant spacing
+                        </div>
+                        <div class="recommendation-item">
+                            <strong>🛡️ Monitor:</strong> Regular pest and disease incidence checks
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>📞 Agricultural Support</h3>
+                    <p class="value">
+                        For further yield improvement, contact your nearest <strong>Krishi Vigyan Kendra (KVK)</strong> 
+                        or <strong>District Agriculture Office</strong> for personalized guidance.
+                    </p>
+                </div>
+
+            {% else %}
+                <!-- ===================================================== -->
+                <!-- ============== DISEASE RESULT ====================== -->
+                <!-- ===================================================== -->
+
+                <div class="section">
+                    <h3>🧪 Detected Disease</h3>
+                    <p class="value"><strong>{{ prediction }}</strong></p>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Prediction Confidence</h3>
+                    <p class="value"><span class="confidence-number">{{ confidence }}%</span></p>
+                </div>
+
+                {% if prediction == "bacterial_leaf_blight" %}
+                    <div class="section">
+                        <h3>🛡️ Precautions</h3>
+                        <p class="value">Avoid excess nitrogen fertilizer. Ensure proper drainage and use disease-free seeds.</p>
+                        <h3>💊 Recommended Medicine</h3>
+                        <p class="value">Streptocycline (0.01%) or Copper Oxychloride (0.3%)</p>
+                        <h3>🧪 Application</h3>
+                        <p class="value">Mix 1g Streptocycline in 10L water. Spray early morning or evening.</p>
+                    </div>
+
+                {% elif prediction == "brown_spot" %}
+                    <div class="section">
+                        <h3>🛡️ Precautions</h3>
+                        <p class="value">Maintain balanced nutrition and avoid moisture stress.</p>
+                        <h3>💊 Recommended Medicine</h3>
+                        <p class="value">Carbendazim (0.1%) or Mancozeb (0.25%)</p>
+                        <h3>🧪 Application</h3>
+                        <p class="value">Spray Mancozeb @ 2.5g/L at 10-day intervals.</p>
+                    </div>
+
+                {% elif prediction == "leaf_blast" %}
+                    <div class="section">
+                        <h3>🛡️ Precautions</h3>
+                        <p class="value">Avoid dense planting and excess nitrogen.</p>
+                        <h3>💊 Recommended Medicine</h3>
+                        <p class="value">Tricyclazole (0.06%)</p>
+                        <h3>🧪 Application</h3>
+                        <p class="value">Spray @ 0.6g/L during early disease appearance.</p>
+                    </div>
+
+                {% elif prediction == "leaf_scald" %}
+                    <div class="section">
+                        <h3>🛡️ Precautions</h3>
+                        <p class="value">Avoid water stagnation and improve air circulation.</p>
+                        <h3>💊 Recommended Medicine</h3>
+                        <p class="value">Propiconazole (1ml/L)</p>
+                    </div>
+
+                {% elif prediction == "narrow_brown_spot" %}
+                    <div class="section">
+                        <h3>🛡️ Precautions</h3>
+                        <p class="value">Ensure proper spacing and balanced fertilizer.</p>
+                        <h3>💊 Recommended Medicine</h3>
+                        <p class="value">Mancozeb (2g/L)</p>
+                    </div>
+
+                {% elif prediction == "healthy" %}
+                    <div class="section">
+                        <div class="healthy-status">
+                            <h3>✅ Excellent! Your Crop is Healthy</h3>
+                            <p class="value" style="font-size: 1.3rem; margin-top: 1rem;">
+                                Continue your excellent agricultural practices. 
+                                Regular monitoring recommended.
+                            </p>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if image_file %}
+                <div class="section image-section">
+                    <h3>📷 Analyzed Leaf Image</h3>
+                    <img src="{{ url_for('static', filename='uploads/' + image_file) }}" 
+                         alt="Uploaded Leaf Image" class="uploaded-image">
+                </div>
+                {% endif %}
+            {% endif %}
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                {% if mode == "yield" %}
+                    <a href="/yield" class="btn">🔁 Predict Again</a>
+                {% else %}
+                    <a href="/disease" class="btn">🔁 Analyze Another Image</a>
+                {% endif %}
+                <a href="/dashboard" class="btn">🏠 Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

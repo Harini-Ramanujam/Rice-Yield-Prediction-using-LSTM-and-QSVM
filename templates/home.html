@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌱 Smart Agriculture AI - Precision Farming Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #2d3748; overflow-x: hidden; }
+
+        /* Header */
+        header { 
+            background: rgba(76, 175, 80, 0.95); backdrop-filter: blur(20px);
+            padding: 1rem 2rem; position: fixed; width: 100%; top: 0; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); color: white; font-weight: 700; }
+        h1 .emoji { font-size: 1.3em; margin-right: 0.5rem; }
+        nav a { color: white; text-decoration: none; padding: 0.75rem 1.5rem; 
+                border-radius: 50px; font-weight: 500; transition: all 0.3s; 
+                border: 2px solid rgba(255,255,255,0.3); margin-left: 0.5rem; }
+        nav a:hover { background: white; color: #4CAF50; transform: translateY(-2px); }
+
+        /* Hero Section */
+        .hero { 
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%234CAF50" width="1200" height="600"/><circle fill="%23255b29" cx="200" cy="200" r="80"/><circle fill="%2332a852" cx="900" cy="300" r="120"/><rect fill="%231e4621" x="400" y="400" width="400" height="200"/></svg>');
+            background-size: cover; height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center; color: white;
+            padding: 0 2rem; margin-top: 80px;
+        }
+        .hero h2 { font-size: clamp(3rem, 8vw, 5rem); font-weight: 700; margin-bottom: 1rem; }
+        .hero p { font-size: 1.3rem; max-width: 600px; margin-bottom: 2rem; opacity: 0.95; }
+        .cta-button { background: #FF6B35; color: white; padding: 1rem 2.5rem; border: none;
+                      border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer;
+                      transition: all 0.3s; text-decoration: none; display: inline-block; }
+
+        /* Features Section */
+        .features { padding: 6rem 2rem; background: #f8fafc; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h3 { text-align: center; font-size: 2.5rem; color: #1a202c; margin-bottom: 4rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .feature-card { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                        text-align: center; transition: transform 0.3s; }
+        .feature-card:hover { transform: translateY(-10px); }
+        .feature-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .feature-card h4 { font-size: 1.5rem; margin-bottom: 1rem; color: #4CAF50; }
+
+        /* Stats Section */
+        .stats { padding: 4rem 2rem; background: linear-gradient(135deg, #4CAF50, #45a049); color: white; text-align: center; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; max-width: 800px; margin: 0 auto; }
+        .stat { font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem; }
+
+        /* CTA Section */
+        .cta-section { padding: 6rem 2rem; text-align: center; background: white; }
+        .cta-section h3 { font-size: 2.5rem; color: #1a202c; margin-bottom: 1rem; }
+        .cta-section p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem; color: #4a5568; }
+
+        /* Footer */
+        footer { background: #1a202c; color: white; text-align: center; padding: 2rem; }
+
+        @media (max-width: 768px) { .hero h2 { font-size: 2.5rem; } .grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span class="emoji">🌱</span>Smart Agriculture AI</h1>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="/signup">Sign Up</a>
+            <a href="/login">Login</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>AI-Powered Precision Farming</h2>
+        <p>Transform your farm with real-time crop monitoring, yield prediction, and automated irrigation. Increase yields by up to 30% while reducing water usage by 40%.</p>
+        <a href="/signup" class="cta-button">Start Free Trial</a>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h3>AI Features for Modern Farming</h3>
+            <div class="grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌾</div>
+                    <h4>Crop Health Monitoring</h4>
+                    <p>AI analyzes drone & satellite imagery to detect diseases and nutrient deficiencies 3x faster than manual inspection.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h4>Yield Prediction</h4>
+                    <p>Machine learning models forecast harvest yields with 92% accuracy based on weather, soil, and historical data.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💧</div>
+                    <h4>Smart Irrigation</h4>
+                    <p>Automated watering schedules optimize usage, saving 40% on water costs while maintaining optimal soil moisture.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚜</div>
+                    <h4>Equipment Optimization</h4>
+                    <p>Predictive maintenance alerts prevent 80% of equipment failures, reducing downtime and repair costs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div>
+                    <div class="stat">+30%</div>
+                    <div>Average Yield Increase</div>
+                </div>
+                <div>
+                    <div class="stat">40%</div>
+                    <div>Water Savings</div>
+                </div>
+                <div>
+                    <div class="stat">5,000+</div>
+                    <div>Farms Using Platform</div>
+                </div>
+                <div>
+                    <div class="stat">24/7</div>
+                    <div>Real-time Monitoring</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h3>Ready to Transform Your Farm?</h3>
+            <p>Join thousands of farmers using AI to achieve sustainable, higher yields with less resources.</p>
+            <a href="/signup" class="cta-button">Get Started Free</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Smart Agriculture AI. Revolutionizing farming through artificial intelligence.</p>
+    </footer>
+</body>
+</html>

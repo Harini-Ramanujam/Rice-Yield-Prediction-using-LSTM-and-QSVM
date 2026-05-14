@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rice Yield Prediction - Smart Agriculture AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            line-height: 1.6; 
+            color: #2d3748; 
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        /* Header - Dashboard Style */
+        header { 
+            background: rgba(76, 175, 80, 0.95); 
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        h1 { 
+            font-size: clamp(1.2rem, 3vw, 1.8rem); 
+            color: white; 
+            font-weight: 700; 
+        }
+        h1 .emoji { 
+            font-size: 1.3em; 
+            margin-right: 0.5rem; 
+        }
+        nav a { 
+            color: white; 
+            text-decoration: none; 
+            padding: 0.6rem 1.2rem; 
+            border-radius: 50px; 
+            font-weight: 500; 
+            transition: all 0.3s; 
+            border: 2px solid rgba(255,255,255,0.3); 
+        }
+        nav a:hover { 
+            background: white; 
+            color: #4CAF50; 
+            transform: translateY(-2px); 
+        }
+
+        /* Main container */
+        .dashboard { 
+            max-width: 700px; 
+            margin: 0 auto; 
+            padding: 0 2rem 4rem; 
+        }
+
+        /* Welcome section */
+        .welcome {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .welcome h2 { 
+            font-size: 2.5rem; 
+            color: #1a202c; 
+            margin-bottom: 1rem; 
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .welcome p { 
+            font-size: 1.2rem; 
+            color: #4a5568; 
+            max-width: 600px; 
+            margin: 0 auto; 
+        }
+
+        /* Form Card */
+        .form-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-top: 6px solid #4CAF50;
+            transition: all 0.3s ease;
+        }
+        .form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: #2e7d32;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background: #fafbff;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.1);
+            background: white;
+            transform: translateY(-2px);
+        }
+        input[readonly] {
+            background: #f7fafc;
+            color: #a0aec0;
+            cursor: not-allowed;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
+            margin-top: 1rem;
+        }
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Result Card */
+        .result {
+            margin-top: 2rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border: 2px solid #c3e6cb;
+            border-radius: 20px;
+            animation: bounceIn 0.6s ease-out;
+            border-left: 6px solid #4CAF50;
+        }
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            50% { transform: scale(1.02); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .result h3 {
+            color: #155724;
+            margin-bottom: 1.25rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .result p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: #155724;
+        }
+        .yield-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2e7d32;
+            background: rgba(46, 125, 50, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        /* Stats Grid Above Form */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.75rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            border-top: 4px solid #4CAF50;
+        }
+        .stat-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12); 
+        }
+        .stat-number { 
+            font-size: 2rem; 
+            font-weight: 700; 
+            color: #4CAF50; 
+            margin-bottom: 0.5rem; 
+        }
+        .stat-label { 
+            color: #4a5568; 
+            font-weight: 500; 
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard { padding: 1rem; }
+            .welcome h2 { font-size: 2rem; }
+            .form-card { padding: 2rem 1.5rem; }
+            header { padding: 1rem; flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span class="emoji">🌱</span>Smart Agriculture AI</h1>
+        <nav>
+            <a href="/dashboard">← Dashboard</a>
+            <a href="/login">Logout</a>
+        </nav>
+    </header>
+
+    <div class="dashboard">
+        <!-- Welcome Section -->
+        <div class="welcome">
+            <h2>🌾 Rice Yield Predictor</h2>
+            <p>Get accurate AI-powered rice yield predictions using real-time weather, soil, and regional data. Plan your harvest with 92% confidence.</p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">🌾 2,450kg</div>
+                <div class="stat-label">Avg Yield/ha</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">✅ 92%</div>
+                <div class="stat-label">Prediction Accuracy</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">📊 15K+</div>
+                <div class="stat-label">Predictions Made</div>
+            </div>
+        </div>
+
+        <!-- Main Form -->
+        <div class="form-card">
+            <form method="POST">
+                <!-- Crop fixed -->
+                <div class="form-group">
+                    <label for="crop">Crop</label>
+                    <input type="text" id="crop" name="crop" value="Rice" readonly>
+                </div>
+
+                <!-- Region dropdown -->
+                <div class="form-group">
+                    <label for="region">Region</label>
+                    <select id="region" name="region" required>
+                        <option value="">-- Select Region --</option>
+                        <option value="South">South</option>
+                        <option value="East">East</option>
+                        <option value="North">North</option>
+                        <option value="Central">Central</option>
+                        <option value="West">West</option>
+                    </select>
+                </div>
+
+                <!-- State dropdown -->
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <select id="state" name="state" required>
+                        <option value="">-- Select State --</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Gujarat">Gujarat</option>
+                    </select>
+                </div>
+
+                <!-- Numeric inputs -->
+                <div class="form-group">
+                    <label for="rainfall">Rainfall (mm)</label>
+                    <input type="number" step="any" id="rainfall" name="rainfall" required placeholder="e.g., 850">
+                </div>
+
+                <div class="form-group">
+                    <label for="temp">Temperature (°C)</label>
+                    <input type="number" step="any" id="temp" name="temp" required placeholder="e.g., 28.5">
+                </div>
+
+                <div class="form-group">
+                    <label for="humidity">Humidity (%)</label>
+                    <input type="number" step="any" id="humidity" name="humidity" required placeholder="e.g., 75">
+                </div>
+
+                <div class="form-group">
+                    <label for="fertilizer">Fertilizer (kg/ha)</label>
+                    <input type="number" step="any" id="fertilizer" name="fertilizer" required placeholder="e.g., 120">
+                </div>
+
+                <div class="form-group">
+                    <label for="ph">Soil pH</label>
+                    <input type="number" step="any" id="ph" name="ph" required placeholder="e.g., 6.5">
+                </div>
+
+                <div class="form-group">
+                    <label for="moisture">Soil Moisture (%)</label>
+                    <input type="number" step="any" id="moisture" name="moisture" required placeholder="e.g., 35">
+                </div>
+
+                <div class="form-group">
+                    <label for="sunlight">Sunlight (hours/day)</label>
+                    <input type="number" step="any" id="sunlight" name="sunlight" required placeholder="e.g., 8.5">
+                </div>
+
+                <button type="submit" class="submit-btn">🚀 Predict Rice Yield</button>
+            </form>
+
+            {% if predicted_yield %}
+            <div class="result">
+                <h3>📊 Prediction Complete!</h3>
+                <p><b>Predicted Rice Yield:</b> <span class="yield-number">{{ predicted_yield }} kg/ha</span></p>
+                <p><b>💡 Smart Recommendation:</b> Maintain optimal irrigation and balanced NPK fertilizer application for maximum yield potential.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

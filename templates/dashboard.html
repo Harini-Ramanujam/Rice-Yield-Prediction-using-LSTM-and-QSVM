@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Smart Agriculture AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            line-height: 1.6; 
+            color: #2d3748; 
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        /* Header - consistent branding */
+        header { 
+            background: rgba(76, 175, 80, 0.95); 
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 { 
+            font-size: clamp(1.2rem, 3vw, 1.8rem); 
+            color: white; 
+            font-weight: 700; 
+        }
+        h1 .emoji { font-size: 1.3em; margin-right: 0.5rem; }
+        nav a { 
+            color: white; 
+            text-decoration: none; 
+            padding: 0.6rem 1.2rem; 
+            border-radius: 50px; 
+            font-weight: 500; 
+            transition: all 0.3s; 
+            border: 2px solid rgba(255,255,255,0.3); 
+        }
+        nav a:hover { 
+            background: white; 
+            color: #4CAF50; 
+            transform: translateY(-2px); 
+        }
+
+        /* Main container */
+        .dashboard { max-width: 1200px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+
+        /* Welcome section */
+        .welcome {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .welcome h2 { 
+            font-size: 2.5rem; 
+            color: #1a202c; 
+            margin-bottom: 1rem; 
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .welcome p { 
+            font-size: 1.2rem; 
+            color: #4a5568; 
+            max-width: 600px; 
+            margin: 0 auto; 
+        }
+
+        /* Stats cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            border-top: 4px solid #4CAF50;
+        }
+        .stat-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
+        .stat-number { font-size: 2.5rem; font-weight: 700; color: #4CAF50; margin-bottom: 0.5rem; }
+        .stat-label { color: #4a5568; font-weight: 500; }
+
+        /* Features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid #4CAF50;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+        .feature-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15); 
+        }
+        .feature-icon { 
+            font-size: 3rem; 
+            width: 80px; 
+            height: 80px; 
+            background: linear-gradient(135deg, #4CAF50, #45a049); 
+            border-radius: 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            flex-shrink: 0;
+        }
+        .feature-content h3 { 
+            font-size: 1.4rem; 
+            color: #1a202c; 
+            margin-bottom: 0.5rem; 
+        }
+        .feature-content p { 
+            color: #4a5568; 
+            line-height: 1.7; 
+        }
+        .feature-link {
+            margin-top: 1rem;
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .feature-link:hover { text-decoration: underline; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard { padding: 1rem; }
+            .welcome h2 { font-size: 2rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .feature-card { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span class="emoji">🌱</span>Smart Agriculture AI</h1>
+        <nav>
+            <a href="/login">Logout</a>
+        </nav>
+    </header>
+
+    <div class="dashboard">
+        <div class="welcome">
+            <h2>🚜 Welcome Back, Farmer!</h2>
+            <p>Monitor your rice crops in real-time and optimize yields with AI-powered insights. Quick access to all your farm tools below.</p>
+        </div>
+
+        <!-- Farm Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">🌾 2,450kg</div>
+                <div class="stat-label">Predicted Rice Yield</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">✅ 92%</div>
+                <div class="stat-label">Healthy Plants</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">💧 78%</div>
+                <div class="stat-label">Soil Moisture</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Last Scan: 2h ago</div>
+            </div>
+        </div>
+
+        <!-- Main Features -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🌿</div>
+                <div class="feature-content">
+                    <h3>Rice Leaf Disease Detection</h3>
+                    <p>Upload leaf photos or connect drone imagery for instant AI diagnosis. Detects 15+ rice diseases including blast, blight, and bacterial leaf streak with 97% accuracy. Get treatment recommendations instantly.</p>
+                    <a href="/disease" class="feature-link">Analyze Crops →</a>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🌾</div>
+                <div class="feature-content">
+                    <h3>Rice Yield Prediction</h3>
+                    <p>AI forecasts your harvest with 92% accuracy using satellite data, weather patterns, soil analysis, and growth stage detection. Plan sales, storage, and logistics with confidence.</p>
+                    <a href="/yield" class="feature-link">View Predictions →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
